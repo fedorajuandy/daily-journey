@@ -1,0 +1,33 @@
+.lucisco-color {
+  color: #677AD9;
+}
+
+.lucisco-background {
+  background-color: #677AD9;
+}
+
+.background-color {
+  background: #121212;
+}
+
+.header-color {
+  color: #1F1F1F;
+}
+
+.area-color {
+  color: #1E1E1E;
+}
+
+/* To modify some of the bootstrap to match the color */
+.btn-primary {
+  background-color: #677AD9 !important;
+  border-color: #121212 !important;
+}
+.btn-primary:hover {
+  background-color: #121212 !important;
+  border-color: #677AD9 !important;
+}
+.btn-primary:focus {
+  border-color: #677AD9 !important;
+  box-shadow: 0 0 0 0.2rem #677AD9 !important;
+}
