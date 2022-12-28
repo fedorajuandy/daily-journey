@@ -1,3 +1,5 @@
+from __future__ import print_function # In python 2.7
+import sys
 import os
 
 from flask import Flask, flash, redirect, render_template, request, session, url_for
@@ -111,27 +113,29 @@ def logout():
 def register():
     """Register user"""
     session.clear()
+    sys.stderr.write("fatal error\n")
+    print >> sys.stderr, 'spam' 
 
     if request.method == "POST":
-        if not request.form.get("username"):
-            return apology("must provide username", 400)
-
-        elif not request.form.get("password"):
-            return apology("must provide password", 400)
-
         cursor = mysql.connection.cursor()
-        rows = cursor.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        rows = cursor.execute("SELECT * FROM users WHERE username = ?", request.form.get("un"))
+        print("Diluc's here\n", file=sys.stderr)
 
         # Ensure username is not taken
         if len(rows) == 1:
-            return apology("someone has already taken the same username", 400)
+            print("Kaeya's here\n", file=sys.stderr)
+            return apology("Someone has already taken the same username", 400)
 
         # Ensure passwords match
-        elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("passwords don't match", 400)
+        elif request.form.get("pw") != request.form.get("confirm"):
+            print("Ruby's here\n", file=sys.stderr)
+            return apology("Passwords don't match", 400)
 
         else:
             # https://www.w3schools.com/python/python_regex.asp
+            print(request.form.get("pw"))
+            print(request.form.get("un"))
+            print(request.form.get("confirm"))
             pw = request.form.get("password")
             uppercase = re.search("[A-Z]", pw)
             lowercase = re.search("[a-z]", pw)
@@ -140,16 +144,15 @@ def register():
 
             # Check password's criteria
             if not uppercase or not lowercase or not number or not special_character:
-                return apology("password must contains alphanumeric and special characters", 400)
+                return apology("Password must contains alphanumeric and special characters", 400)
 
             # Make a new user
             else:
                 cursor.execute("INSERT INTO users (username, hash) VALUES (?, ?)",
-                           request.form.get("username"), generate_password_hash(pw))
-        
+                request.form.get("un"), generate_password_hash(pw))
+        print("Shira's here\n", file=sys.stderr)
         cursor.close()
-        return redirect("/")
+        return redirect("/login")
 
     else:
-        return render_template("register.html")
-
+        return render_template("login.html")
