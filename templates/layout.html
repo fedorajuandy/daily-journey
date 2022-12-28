@@ -36,6 +36,7 @@
               </ul>
             {% else %}
               <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a></li>
               </ul>
             {% endif %}
@@ -89,7 +90,7 @@
                 </div>
                 <div class="col-12 mb-3">
                   <label for="pw" class="form-label">Password <span class="text-danger">*</span></label>
-                  <input type="pw" class="form-control" id="pw" name="pw" placeholder="Password" required>
+                  <input type="password" class="form-control" id="pw" name="pw" placeholder="Password" required>
                   <div class="valid-feedback">
                     Looks good!
                   </div>
@@ -99,7 +100,7 @@
                 </div>
                 <div class="col-12 mb-3">
                   <label for="confirm" class="form-label">Confirm password <span class="text-danger">*</span></label>
-                  <input type="confirm" class="form-control" id="confirm" name="confirm" placeholder="Same password" required>
+                  <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Same password" required>
                   <div class="valid-feedback">
                     Looks good!
                   </div>
