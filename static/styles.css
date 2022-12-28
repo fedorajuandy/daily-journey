@@ -18,7 +18,7 @@
   color: #1E1E1E;
 }
 
-/* To modify some of the bootstrap to match the color */
+/* Bootstrap modifications */
 .btn-primary {
   background-color: #677AD9 !important;
   border-color: #121212 !important;
@@ -30,4 +30,22 @@
 .btn-primary:focus {
   border-color: #677AD9 !important;
   box-shadow: 0 0 0 0.2rem #677AD9 !important;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: #FFFFFF;
+}
+.navbar-custom .navbar-nav .nav-link {
+    color: #FFFFFF;
+}
+.navbar-custom .active,
+.navbar-custom .nav-link:focus,
+.navbar-custom .nav-link:hover {
+    color: #677AD9 !important;
+}
+
+.navbar-custom .navbar-toggler {
+    color: #677AD9 !important;
+    border-color: #677AD9 !important;
 }
