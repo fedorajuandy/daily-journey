@@ -16,4 +16,10 @@
       form.classList.add('was-validated')
     }, false)
   })
+
+  document.getElementById("clear").addEventListener("click", function () {
+    Array.from(forms).forEach(form => {
+      form.classList.remove('was-validated')
+    })
+  })
 })()
