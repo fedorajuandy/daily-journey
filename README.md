@@ -167,7 +167,7 @@ Link    : <a href="https://thenounproject.com/icon/phoenix-2266436/">Phonix icon
 
 ### Codes Reference
 
-
+- [Issue with Bootstrap's pointer at NavLink](https://github.com/reactstrap/reactstrap/issues/450)
 
 ### Tools Used
 
