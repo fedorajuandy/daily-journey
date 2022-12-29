@@ -155,33 +155,23 @@ def beverages():
 
     return render_template('beverages/index.html', beverages=beverages)
 
+
 @app.route('/beverages/create', methods=['GET', 'POST'])
 def create_beverages():
     if request.method == "POST":
-        nama = request.form['nama']
-        univ = request.form['univ']
-        jurusan = request.form['jurusan']
+        user_id = session["user_id"]
+        name = request.form['name']
+        notes = request.form['notes']
 
         cursor = mysql.connection.cursor()
-        cursor.execute('''INSERT INTO dosen(nama,univ,jurusan) VALUES(%s,%s,%s)''',(nama,univ,jurusan))
+        cursor.execute("INSERT INTO beverages (user_id, name, notes) VALUES (%s, %s, %s)", (user_id, name, notes))
         mysql.connection.commit()
         cursor.close()
-        return redirect(url_for('dosen'))
 
-        return render_template('dosen.html')
+        return redirect(url_for('beverages'))
 
     else:
-        return render_template('dosen/add.html')
-
-
-@app.route('/expenses/index')
-def expenses():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM expenses where user_id LIKE %s", (session["user_id"], ))
-    expenses = cursor.fetchall()
-    cursor.close()
-
-    return render_template('expenses/index.html', expenses=expenses)
+        return render_template('beverages/create.html')
 
 
 @app.route('/food/index')
@@ -192,16 +182,6 @@ def food():
     cursor.close()
 
     return render_template('food/index.html', food=food)
-
-
-@app.route('/importances/index')
-def importances():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM importances where user_id LIKE %s", (session["user_id"], ))
-    importances = cursor.fetchall()
-    cursor.close()
-
-    return render_template('importances/index.html', importances=importances)
 
 
 @app.route('/moods/index')
