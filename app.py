@@ -9,6 +9,7 @@ from datetime import datetime
 
 from helpers import login_required
 
+
 app = Flask(__name__)
 
 # Ensure templates auto-reloaded
@@ -41,8 +42,6 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():
-    return render_template("journey.html")
-
     # Get data from database
     """ cursor = mysql.connection.cursor()
     j = cursor.execute("SELECT * FROM journeys WHERE date = (SELECT CONVERT(VARCHAR(10), GETDATE(), 105)) AND username = ?", session["username"])
@@ -63,32 +62,29 @@ def index():
 
     cursor.close() """
 
+    return render_template("index.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """log user in"""
-
-    # Forget any username
+    # Forget user
     session.clear()
 
     # If submitting a form
     if request.method == "POST":
         cursor = mysql.connection.cursor()
-
-        # Query database for username
         cursor.execute("SELECT * FROM users WHERE username = %s", (request.form["username"], ))
         rows = cursor.fetchone()
 
         # Ensure username exists and password is correct
         if not rows or not check_password_hash(rows[2], request.form["password"]):
-            return render_template("apology.html", message="Invalid username and/or password")
+            return render_template("apology.html", message="Invalid username and/or password.")
 
-        # Remember which user has logged in
-        session["username"] = rows[1]
+        # Remember user
+        session["user_id"] = rows[0]
+        # Close db
         cursor.close()
 
-        # Redirect user to home page
         return redirect("/")
 
     # If going to page
@@ -98,18 +94,13 @@ def login():
 
 @app.route("/logout")
 def logout():
-    """Log user out"""
-
-    # Forget any username
     session.clear()
 
-    # Redirect user to login form
     return redirect("/")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user"""
     session.clear()
 
     if request.method == "POST":
@@ -119,16 +110,15 @@ def register():
         cursor.execute("SELECT username FROM users WHERE username = %s", (un, ))
         rows = cursor.fetchone()
 
-        """ Ensure username is not taken """
+        # Ensure unique username
         if rows:
-            return render_template("apology.html", message="Someone has already taken the same username")
+            return render_template("apology.html", message="Someone has already taken the same username :(")
 
         elif pw != request.form['confirm']:
-            """ Ensure passwords match """
-            return render_template("apology.html", message="Passwords don't match")
+            # Ensure password match
+            return render_template("apology.html", message="Passwords do not match.")
 
         else:
-            """ https://www.w3schools.com/python/python_regex.asp """
             uppercase = re.search("[A-Z]", pw)
             lowercase = re.search("[a-z]", pw)
             number = re.search("[0-9]", pw)
