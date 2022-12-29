@@ -17,6 +17,7 @@
     }, false)
   })
 
+  /* Revert form state to before validatation */
   document.getElementById("clear").addEventListener("click", function () {
     Array.from(forms).forEach(form => {
       form.classList.remove('was-validated')
