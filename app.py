@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -144,3 +144,91 @@ def register():
 
     else:
         return render_template("login.html")
+
+
+@app.route('/beverages/index')
+def beverages():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM beverages where user_id LIKE %s", (session["user_id"], ))
+    beverages = cursor.fetchall()
+    cursor.close()
+
+    return render_template('beverages/index.html', beverages=beverages)
+
+@app.route('/beverages/create', methods=['GET', 'POST'])
+def create_beverages():
+    if request.method == "POST":
+        nama = request.form['nama']
+        univ = request.form['univ']
+        jurusan = request.form['jurusan']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute('''INSERT INTO dosen(nama,univ,jurusan) VALUES(%s,%s,%s)''',(nama,univ,jurusan))
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for('dosen'))
+
+        return render_template('dosen.html')
+
+    else:
+        return render_template('dosen/add.html')
+
+
+@app.route('/expenses/index')
+def expenses():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM expenses where user_id LIKE %s", (session["user_id"], ))
+    expenses = cursor.fetchall()
+    cursor.close()
+
+    return render_template('expenses/index.html', expenses=expenses)
+
+
+@app.route('/food/index')
+def food():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM food where user_id LIKE %s", (session["user_id"], ))
+    food = cursor.fetchall()
+    cursor.close()
+
+    return render_template('food/index.html', food=food)
+
+
+@app.route('/importances/index')
+def importances():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM importances where user_id LIKE %s", (session["user_id"], ))
+    importances = cursor.fetchall()
+    cursor.close()
+
+    return render_template('importances/index.html', importances=importances)
+
+
+@app.route('/moods/index')
+def moods():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM moods where user_id LIKE %s", (session["user_id"], ))
+    moods = cursor.fetchall()
+    cursor.close()
+
+    return render_template('moods/index.html', moods=moods)
+
+
+@app.route('/people/index')
+def people():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM people where user_id LIKE %s", (session["user_id"], ))
+    people = cursor.fetchall()
+    cursor.close()
+
+    return render_template('people/index.html', people=people)
+
+
+@app.route('/weathers/index')
+def weathers():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM weathers where user_id LIKE %s", (session["user_id"], ))
+    weathers = cursor.fetchall()
+    cursor.close()
+
+    return render_template('weathers/index.html', weathers=weathers)
