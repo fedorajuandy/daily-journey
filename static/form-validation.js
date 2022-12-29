@@ -1,3 +1,8 @@
+/* 
+Form validation
+
+https://getbootstrap.com/docs/5.2/forms/validation/#how-it-works
+*/
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {
   'use strict'

@@ -3,9 +3,9 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_mysqldb import MySQL
+from datetime import datetime
 
 import re
-from datetime import datetime
 
 from helpers import login_required
 
@@ -21,7 +21,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# Configure database
+# Configure database; this is the default, configure it to suit your own
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
@@ -32,6 +32,9 @@ mysql = MySQL(app)
 
 @app.after_request
 def after_request(response):
+    """
+    CS50 PSET 9; with staff's solution as reference
+    """
     # Responses are not cached
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
@@ -42,7 +45,6 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():
-    # Get data from database
     """ cursor = mysql.connection.cursor()
     j = cursor.execute("SELECT * FROM journeys WHERE date = (SELECT CONVERT(VARCHAR(10), GETDATE(), 105)) AND username = ?", session["username"])
     journey = j[0]["journey"]
@@ -72,6 +74,7 @@ def login():
 
     # If submitting a form
     if request.method == "POST":
+        # Get data from database
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM users WHERE username = %s", (request.form["username"], ))
         rows = cursor.fetchone()
@@ -85,6 +88,7 @@ def login():
         # Close db
         cursor.close()
 
+        # Redirect to index/login
         return redirect("/")
 
     # If going to page
@@ -114,19 +118,20 @@ def register():
         if rows:
             return render_template("apology.html", message="Someone has already taken the same username :(")
 
+        # Ensure password and confirmation match
         elif pw != request.form['confirm']:
-            # Ensure password match
             return render_template("apology.html", message="Passwords do not match.")
 
         else:
+            # Password criterias: one uppercase, one lowercase, one number, one special character
             uppercase = re.search("[A-Z]", pw)
             lowercase = re.search("[a-z]", pw)
             number = re.search("[0-9]", pw)
             special_character = re.search("[@_!#$%^&*()<>?/\|}{~:]", pw)
 
-            # Check password's criteria
+            # Check password's criterias
             if not uppercase or not lowercase or not number or not special_character:
-                return render_template("apology.html", message="Password must contains alphanumeric and special characters")
+                return render_template("apology.html", message="Password must contains at least one uppercase and lowercase alphanumeric with one special character.")
 
             # Make a new user
             else:
@@ -134,6 +139,7 @@ def register():
                 mysql.connection.commit()
 
         cursor.close()
+
         return redirect("/")
 
     else:
