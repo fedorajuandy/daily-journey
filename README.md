@@ -206,10 +206,12 @@ Link    : [Phoenix icon](https://thenounproject.com/icon/phoenix-2266436/)
 
 - [Set up Flask with MySQL](https://flask-mysql.readthedocs.io/en/stable/)
 - [Bootstrap v5.2 documentation](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
+- [Flask MySQL CRUD](https://ngodingdata.com/tutorial-flask-crud-dengan-mysql-part-1/)
 - [Issue with Bootstrap's pointer at NavLink](https://github.com/reactstrap/reactstrap/issues/450)
 - [Python Regex](https://www.w3schools.com/python/python_regex.asp)
 - [Check cursor's result](https://stackoverflow.com/questions/31692339/mysqldb-check-if-row-exists-python)
 - [Convert time to certain format](https://tableplus.com/blog/2018/09/ms-sql-server-how-to-get-date-only-from-datetime-value.html)
+- [Change Bootstrap tab css](https://stackoverflow.com/questions/51701512/how-to-change-the-color-of-active-tab-in-bootstrap)
 
 ### Tools Used
 
