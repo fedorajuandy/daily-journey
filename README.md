@@ -58,9 +58,9 @@ Dawn's and phoenix's colors are of course, shades of beautiful red, but nah, let
 
 ## Database
 
-[image]
+![ERD](/additionals/database-scheme.png)
 
-From the ERD, we could get tables:
+From the diagram, we could get tables:
 
 1. beverages
 
@@ -127,7 +127,7 @@ This table contains daily most weather. Yeah, most. Just one per day.
 
 ## Project setup
 
-### Dependencies
+### Install dependencies
 
 - pip install Flask
 - pip install flask-mysql
@@ -139,16 +139,17 @@ This table contains daily most weather. Yeah, most. Just one per day.
 
 ### Starting
 
-- python3 -m venv venv
-- venv\Scripts\activate
-- flask run
-- flask --app app.py --debug run
+- `python3 -m venv venv`
+- `venv\Scripts\activate`
+- `flask run` or `flask --app app.py --debug run`
 
 > [To run flask in debug mode](https://stackoverflow.com/questions/16344756/auto-reloading-python-flask-app-upon-code-changes)
 
 ### If something goes wrong
 
 - export FLASK_APP=app
+
+> Admitedly, I forgot what happened
 
 ---
 
@@ -162,33 +163,24 @@ Phoenix
 By		: Saeful Muslim
 Source	: The Noun Project
 License	: CC BY
-Link    : <a href="https://thenounproject.com/icon/phoenix-2266436/">Phonix icon</a>
+Link    : [Phoenix icon](https://thenounproject.com/icon/phoenix-2266436/)
 
 ### UI/UX Inspiration
 
-<a href="https://dribbble.com/tags/notes_app">Notes app</a> in <a href="https://dribbble.com">Dribbble</a>
+- [Notes app](https://dribbble.com/tags/notes_app)
 
-### Codes Reference
+### General codes' understanding (and future reminders)
 
+- [Set up Flask with MySQL](https://flask-mysql.readthedocs.io/en/stable/)
+- [Bootstrap v5.2](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
 - [Issue with Bootstrap's pointer at NavLink](https://github.com/reactstrap/reactstrap/issues/450)
-- [To check cursor's result](https://stackoverflow.com/questions/31692339/mysqldb-check-if-row-exists-python)
+- [Python Regex](https://www.w3schools.com/python/python_regex.asp)
+- [Check cursor's result](https://stackoverflow.com/questions/31692339/mysqldb-check-if-row-exists-python)
+- [Convert time to certain format](https://tableplus.com/blog/2018/09/ms-sql-server-how-to-get-date-only-from-datetime-value.html)
 
 ### Tools Used
 
-Visual Studio Code
-
-- To build
-
-Figma
-
-- To edit logo
-- UI/UX
-
-Adobe Creative Cloud Express
-
-- To make logo
-
-### Other references for reminder
-
-- <a href="https://flask-mysql.readthedocs.io/en/stable/">Setting up flask with MySQL</a>
-- <a href="https://tableplus.com/blog/2018/09/ms-sql-server-how-to-get-date-only-from-datetime-value.html">Converting current time into desired value and format</a>
+- Visual Studio Code v1.74.2.0
+- Laragon v5.0.0
+- [Figma](https://www.figma.com/)
+- [Adobe Creative Cloud Express](https://express.adobe.com/express-apps/logo-maker/)
