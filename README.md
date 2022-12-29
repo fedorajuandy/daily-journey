@@ -113,15 +113,48 @@ This table contains daily most weather. Yeah, most. Just one per day.
 ### folders
 
 - additionals
+
+Additional files for references.
+
+    - daily-journey.sql
+
+    Base database without any data.
+
+    - database-scheme.png
+
+    Database structure.
+
 - static
+
+Static files.
+
+    - form-validation
+
+    Front-end form validation from Bootstrap with modification.
+
+    - lucisco-header.svg, lucisco-icon.svg, lucisco-login.png, lucisco-login.svg
+
+    Images in app.
+
 - templates
 
-### Other Files
+App's html files
+
+- .gitnore
+
+Standard gitnore for Python project with session as addition.
 
 - app.py
-- daily-journey.sql
+
+Main app.
+
 - helpers.py
+
+Python helper functions.
+
 - README.md
+
+This file; which is the explanations.
 
 ---
 
@@ -172,7 +205,7 @@ Link    : [Phoenix icon](https://thenounproject.com/icon/phoenix-2266436/)
 ### General codes' understanding (and future reminders)
 
 - [Set up Flask with MySQL](https://flask-mysql.readthedocs.io/en/stable/)
-- [Bootstrap v5.2](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
+- [Bootstrap v5.2 documentation](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
 - [Issue with Bootstrap's pointer at NavLink](https://github.com/reactstrap/reactstrap/issues/450)
 - [Python Regex](https://www.w3schools.com/python/python_regex.asp)
 - [Check cursor's result](https://stackoverflow.com/questions/31692339/mysqldb-check-if-row-exists-python)
