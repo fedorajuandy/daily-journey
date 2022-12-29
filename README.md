@@ -142,6 +142,9 @@ This table contains daily most weather. Yeah, most. Just one per day.
 - python3 -m venv venv
 - venv\Scripts\activate
 - flask run
+- flask --app app.py --debug run
+
+> [To run flask in debug mode](https://stackoverflow.com/questions/16344756/auto-reloading-python-flask-app-upon-code-changes)
 
 ### If something goes wrong
 
@@ -168,6 +171,7 @@ Link    : <a href="https://thenounproject.com/icon/phoenix-2266436/">Phonix icon
 ### Codes Reference
 
 - [Issue with Bootstrap's pointer at NavLink](https://github.com/reactstrap/reactstrap/issues/450)
+- [To check cursor's result](https://stackoverflow.com/questions/31692339/mysqldb-check-if-row-exists-python)
 
 ### Tools Used
 
