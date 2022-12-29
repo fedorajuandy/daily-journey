@@ -6,12 +6,12 @@
   background-color: #677AD9;
 }
 
-.background-color {
+.color-background {
   background: #121212;
 }
 
-.header-color {
-  color: #1F1F1F;
+.header-background {
+  background-color: #1F1F1F;
 }
 
 .area-color {
@@ -48,4 +48,14 @@
 .navbar-custom .navbar-toggler {
     color: #677AD9 !important;
     border-color: #677AD9 !important;
+}
+
+.nav-tabs .nav-item .nav-link {
+  background-color: #1E1E1E;
+  color: #DEE2E6;
+}
+.nav-tabs .nav-item .nav-link.active {
+  border: 1px solid #ccc;
+  background-color: #677AD9;
+  color: #FFFFFF;
 }
