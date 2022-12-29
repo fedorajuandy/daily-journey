@@ -12,8 +12,8 @@
 
   <body>
     <!-- Header -->
-    <div class="container-fluid background-color pl-0">
-      <nav role="navigation" class="navbar navbar-expand-lg fixed-top navbar-custom shadow-lg">
+    <div class="container-fluid color-background pl-0">
+      <nav role="navigation" class="navbar navbar-expand-lg fixed-top navbar-custom shadow-lg header-background">
         <div class="container">
           <a class="navbar-brand" href="#">
             <img src="/static/lucisco-header.svg" width="auto" height="32" alt="Lucisco">
@@ -26,11 +26,12 @@
           <div class="collapse navbar-collapse" id="navbarToggler">
             {% if session["user_id"] %}
               <div class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Journey</a></li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Data
                   </a>
-                  <ul class="dropdown-menu">
+                  <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="/beverages/index">Beverages</a></li>
                     <li><a class="dropdown-item" href="/food/index">Food</a></li>
                     <li><a class="dropdown-item" href="/importances/index">Importances</a></li>
@@ -64,14 +65,14 @@
     {% endif %}
 
     <!-- content -->
-    <main class="container-fluid background-color">
+    <main class="container-fluid color-background">
       <div class="container">
         {% block main %}{% endblock %}
       </div>
     </main>
 
     <!-- footer -->
-    <footer class="pb-2 pt-3 background-color">
+    <footer class="pb-2 pt-3 header-background">
       <div class="container text-center">
         <h6 class="lucisco-color">&copy; Fedora Yoshe Juandy</h6>
       </div>
@@ -131,5 +132,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="/static/form-validation.js"></script>
+    <script src="/static/script.js"></script>
   </body>
 </html>
