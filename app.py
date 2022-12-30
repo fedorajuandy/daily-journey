@@ -176,7 +176,7 @@ def add_beverages():
 
 
 @app.route('/beverages/edit/<int:id>', methods=['GET', 'POST'])
-def editdosen(id):
+def edit_beverage(id):
     if request.method == "POST":
         name = request.form['name']
         notes = request.form['notes']
@@ -199,7 +199,7 @@ def editdosen(id):
 
 
 @app.route('/beverages/delete/<int:id>', methods=['GET'])
-def deletedosen(id):
+def delete_beverage(id):
     if request.method == 'GET':
         cursor = mysql.connection.cursor()
         cursor.execute("DELETE FROM beverages WHERE id = %s", (id, ))
@@ -224,7 +224,7 @@ def food():
 
 
 @app.route('/food/edit/<int:id>', methods=['GET', 'POST'])
-def editdosen(id):
+def edit_food(id):
     if request.method == "POST":
         name = request.form['name']
         notes = request.form['notes']
@@ -247,7 +247,7 @@ def editdosen(id):
 
 
 @app.route('/food/delete/<int:id>', methods=['GET'])
-def deletedosen(id):
+def delete_food(id):
     if request.method == 'GET':
         cursor = mysql.connection.cursor()
         cursor.execute("DELETE FROM food WHERE id = %s", (id, ))
@@ -272,7 +272,7 @@ def moods():
 
 
 @app.route('/moods/edit/<int:id>', methods=['GET', 'POST'])
-def editdosen(id):
+def edit_mood(id):
     if request.method == "POST":
         name = request.form['name']
         notes = request.form['notes']
@@ -295,7 +295,7 @@ def editdosen(id):
 
 
 @app.route('/moods/delete/<int:id>', methods=['GET'])
-def deletedosen(id):
+def delete_mood(id):
     if request.method == 'GET':
         cursor = mysql.connection.cursor()
         cursor.execute("DELETE FROM moods WHERE id = %s", (id, ))
@@ -320,7 +320,7 @@ def people():
 
 
 @app.route('/people/edit/<int:id>', methods=['GET', 'POST'])
-def editdosen(id):
+def edit_person(id):
     if request.method == "POST":
         name = request.form['name']
         notes = request.form['notes']
@@ -343,7 +343,7 @@ def editdosen(id):
 
 
 @app.route('/people/delete/<int:id>', methods=['GET'])
-def deletedosen(id):
+def delete_person(id):
     if request.method == 'GET':
         cursor = mysql.connection.cursor()
         cursor.execute("DELETE FROM people WHERE id = %s", (id, ))
@@ -368,7 +368,7 @@ def weathers():
 
 
 @app.route('/weathers/edit/<int:id>', methods=['GET', 'POST'])
-def editdosen(id):
+def edit_weather(id):
     if request.method == "POST":
         name = request.form['name']
         notes = request.form['notes']
@@ -391,7 +391,7 @@ def editdosen(id):
 
 
 @app.route('/weathers/delete/<int:id>', methods=['GET'])
-def deletedosen(id):
+def delete_weather(id):
     if request.method == 'GET':
         cursor = mysql.connection.cursor()
         cursor.execute("DELETE FROM weathers WHERE id = %s", (id, ))
