@@ -157,7 +157,7 @@ def beverages():
 
 
 @app.route('/beverages/create', methods=['GET', 'POST'])
-def add_beverages():
+def add_beverage():
     if request.method == "POST":
         user_id = session["user_id"]
         name = request.form['name']
@@ -223,6 +223,25 @@ def food():
     return render_template('food/index.html', food=food)
 
 
+@app.route('/food/create', methods=['GET', 'POST'])
+def add_food():
+    if request.method == "POST":
+        user_id = session["user_id"]
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("INSERT INTO food (user_id, name, notes) VALUES (%s, %s, %s)", (user_id, name, notes))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data added.", "success")
+        return redirect(url_for('food'))
+
+    else:
+        return render_template('food/create.html')
+
+
 @app.route('/food/edit/<int:id>', methods=['GET', 'POST'])
 def edit_food(id):
     if request.method == "POST":
@@ -269,6 +288,25 @@ def moods():
     cursor.close()
 
     return render_template('moods/index.html', moods=moods)
+
+
+@app.route('/moods/create', methods=['GET', 'POST'])
+def add_mood():
+    if request.method == "POST":
+        user_id = session["user_id"]
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("INSERT INTO moods (user_id, name, notes) VALUES (%s, %s, %s)", (user_id, name, notes))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data added.", "success")
+        return redirect(url_for('moods'))
+
+    else:
+        return render_template('moods/create.html')
 
 
 @app.route('/moods/edit/<int:id>', methods=['GET', 'POST'])
@@ -319,6 +357,25 @@ def people():
     return render_template('people/index.html', people=people)
 
 
+@app.route('/people/create', methods=['GET', 'POST'])
+def add_person():
+    if request.method == "POST":
+        user_id = session["user_id"]
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("INSERT INTO people (user_id, name, notes) VALUES (%s, %s, %s)", (user_id, name, notes))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data added.", "success")
+        return redirect(url_for('people'))
+
+    else:
+        return render_template('people/create.html')
+
+
 @app.route('/people/edit/<int:id>', methods=['GET', 'POST'])
 def edit_person(id):
     if request.method == "POST":
@@ -365,6 +422,25 @@ def weathers():
     cursor.close()
 
     return render_template('weathers/index.html', weathers=weathers)
+
+
+@app.route('/weathers/create', methods=['GET', 'POST'])
+def add_person():
+    if request.method == "POST":
+        user_id = session["user_id"]
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("INSERT INTO weathers (user_id, name, notes) VALUES (%s, %s, %s)", (user_id, name, notes))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data added.", "success")
+        return redirect(url_for('weathers'))
+
+    else:
+        return render_template('weathers/create.html')
 
 
 @app.route('/weathers/edit/<int:id>', methods=['GET', 'POST'])
