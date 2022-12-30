@@ -425,7 +425,7 @@ def weathers():
 
 
 @app.route('/weathers/create', methods=['GET', 'POST'])
-def add_person():
+def add_weather():
     if request.method == "POST":
         user_id = session["user_id"]
         name = request.form['name']
