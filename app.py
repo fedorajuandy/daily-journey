@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session, url_for
+from flask import Flask, redirect, flash, render_template, request, session, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -146,7 +146,7 @@ def register():
         return render_template("login.html")
 
 
-@app.route('/beverages/index')
+@app.route('/beverages')
 def beverages():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM beverages where user_id LIKE %s", (session["user_id"], ))
@@ -157,7 +157,7 @@ def beverages():
 
 
 @app.route('/beverages/create', methods=['GET', 'POST'])
-def create_beverages():
+def add_beverages():
     if request.method == "POST":
         user_id = session["user_id"]
         name = request.form['name']
@@ -168,13 +168,52 @@ def create_beverages():
         mysql.connection.commit()
         cursor.close()
 
+        flash("Data added.", "success")
         return redirect(url_for('beverages'))
 
     else:
         return render_template('beverages/create.html')
 
 
-@app.route('/food/index')
+@app.route('/beverages/edit/<int:id>', methods=['GET', 'POST'])
+def editdosen(id):
+    if request.method == "POST":
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE beverages SET name = %s, notes = %s WHERE id = %s", (name, notes, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('beverages'))
+
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM beverages WHERE id = %s", (id, ))
+        beverage = cursor.fetchone()
+        cursor.close()
+
+        return render_template('beverages/edit.html', beverage=beverage)
+
+
+@app.route('/beverages/delete/<int:id>', methods=['GET'])
+def deletedosen(id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM beverages WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('beverages'))
+
+    else:
+        return render_template('beverages.html')
+
+
+@app.route('/food')
 def food():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM food where user_id LIKE %s", (session["user_id"], ))
@@ -184,7 +223,7 @@ def food():
     return render_template('food/index.html', food=food)
 
 
-@app.route('/moods/index')
+@app.route('/moods')
 def moods():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM moods where user_id LIKE %s", (session["user_id"], ))
@@ -194,7 +233,7 @@ def moods():
     return render_template('moods/index.html', moods=moods)
 
 
-@app.route('/people/index')
+@app.route('/people')
 def people():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM people where user_id LIKE %s", (session["user_id"], ))
@@ -204,7 +243,7 @@ def people():
     return render_template('people/index.html', people=people)
 
 
-@app.route('/weathers/index')
+@app.route('/weathers')
 def weathers():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * FROM weathers where user_id LIKE %s", (session["user_id"], ))

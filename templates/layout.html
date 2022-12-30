@@ -32,11 +32,11 @@
                     Data
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="/beverages/index">Beverages</a></li>
-                    <li><a class="dropdown-item" href="/food/index">Food</a></li>
-                    <li><a class="dropdown-item" href="/moods/index">Moods</a></li>
-                    <li><a class="dropdown-item" href="/people/index">Peoples</a></li>
-                    <li><a class="dropdown-item" href="/weathers/index">Weathers</a></li>
+                    <li><a class="dropdown-item" href="/beverages">Beverages</a></li>
+                    <li><a class="dropdown-item" href="/food">Food</a></li>
+                    <li><a class="dropdown-item" href="/moods">Moods</a></li>
+                    <li><a class="dropdown-item" href="/people">Peoples</a></li>
+                    <li><a class="dropdown-item" href="/weathers">Weathers</a></li>
                   </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
@@ -52,19 +52,17 @@
       </nav>
     </div>
 
-    <!-- CS50 PSET9; with staff's Solution as reference -->
-    <!-- for alerts -->
-    {% if get_flashed_messages() %}
-      <header>
-        <div class="alert alert-primary mb-0 text-center" role="alert">
-          {{ get_flashed_messages() | join(" ") }}
-        </div>
-      </header>
-    {% endif %}
-
     <!-- content -->
     <main class="container-fluid color-background">
-      <div class="container">
+      <div class="container pt-5">
+        <!-- CS50 PSET9; with staff's Solution as reference -->
+        <!-- for alerts -->
+        {% if get_flashed_messages() %}
+          <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+            {{ get_flashed_messages() | join(" ") }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endif %}
         {% block main %}{% endblock %}
       </div>
     </main>

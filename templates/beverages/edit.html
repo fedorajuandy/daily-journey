@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-  Add Beverage
+  Edit beverage
 {% endblock %}
 
 {% block main %}
@@ -9,15 +9,15 @@
   <div class="pt-5 pb-3">
     <div class="row pt-5">
       <div class="col-12">
-        <h1 class="display-5">Add Beverage</h1>
+        <h1 class="display-5">Edit beverage</h1>
       </div>
     </div>
   </div>
-  <form class="needs-validation text-white-50" novalidate="" action="/beverages/create" method="POST">
+  <form class="needs-validation text-white-50" novalidate="" action="/beverages/edit/{{ beverage[0] }}" method="POST">
     <div class="row mb-3">
       <div class="col-12 mb-3">
         <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Name" autocomplete="off" autofocus required>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ beverage[2] }}" autocomplete="off" autofocus required>
         <div class="valid-feedback">
           Looks good!
         </div>
@@ -27,7 +27,7 @@
       </div>
       <div class="col-12 mb-3">
         <label for="notes" class="form-label">Notes <span class="text-danger">*</span></label>
-        <textarea class="form-control notes" id="notes" name="notes" placeholder="Notes" required></textarea>
+        <textarea class="form-control notes" id="notes" name="notes" placeholder="Notes" required>{{ beverage[3] }}</textarea>
         <div class="valid-feedback">
           Looks good!
         </div>
