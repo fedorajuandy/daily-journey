@@ -223,6 +223,44 @@ def food():
     return render_template('food/index.html', food=food)
 
 
+@app.route('/food/edit/<int:id>', methods=['GET', 'POST'])
+def editdosen(id):
+    if request.method == "POST":
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE food SET name = %s, notes = %s WHERE id = %s", (name, notes, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('food'))
+
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM food WHERE id = %s", (id, ))
+        food = cursor.fetchone()
+        cursor.close()
+
+        return render_template('food/edit.html', food=food)
+
+
+@app.route('/food/delete/<int:id>', methods=['GET'])
+def deletedosen(id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM food WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('food'))
+
+    else:
+        return render_template('food.html')
+
+
 @app.route('/moods')
 def moods():
     cursor = mysql.connection.cursor()
@@ -231,6 +269,44 @@ def moods():
     cursor.close()
 
     return render_template('moods/index.html', moods=moods)
+
+
+@app.route('/moods/edit/<int:id>', methods=['GET', 'POST'])
+def editdosen(id):
+    if request.method == "POST":
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE moods SET name = %s, notes = %s WHERE id = %s", (name, notes, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('moods'))
+
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM moods WHERE id = %s", (id, ))
+        beverage = cursor.fetchone()
+        cursor.close()
+
+        return render_template('moods/edit.html', beverage=beverage)
+
+
+@app.route('/moods/delete/<int:id>', methods=['GET'])
+def deletedosen(id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM moods WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('moods'))
+
+    else:
+        return render_template('moods.html')
 
 
 @app.route('/people')
@@ -243,6 +319,44 @@ def people():
     return render_template('people/index.html', people=people)
 
 
+@app.route('/people/edit/<int:id>', methods=['GET', 'POST'])
+def editdosen(id):
+    if request.method == "POST":
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE people SET name = %s, notes = %s WHERE id = %s", (name, notes, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('people'))
+
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM people WHERE id = %s", (id, ))
+        beverage = cursor.fetchone()
+        cursor.close()
+
+        return render_template('people/edit.html', beverage=beverage)
+
+
+@app.route('/people/delete/<int:id>', methods=['GET'])
+def deletedosen(id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM people WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('people'))
+
+    else:
+        return render_template('people.html')
+
+
 @app.route('/weathers')
 def weathers():
     cursor = mysql.connection.cursor()
@@ -251,3 +365,41 @@ def weathers():
     cursor.close()
 
     return render_template('weathers/index.html', weathers=weathers)
+
+
+@app.route('/weathers/edit/<int:id>', methods=['GET', 'POST'])
+def editdosen(id):
+    if request.method == "POST":
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE weathers SET name = %s, notes = %s WHERE id = %s", (name, notes, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('weathers'))
+
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM weathers WHERE id = %s", (id, ))
+        beverage = cursor.fetchone()
+        cursor.close()
+
+        return render_template('weathers/edit.html', beverage=beverage)
+
+
+@app.route('/weathers/delete/<int:id>', methods=['GET'])
+def deletedosen(id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM weathers WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('weathers'))
+
+    else:
+        return render_template('weathers.html')
