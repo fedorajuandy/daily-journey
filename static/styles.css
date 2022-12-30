@@ -1,3 +1,4 @@
+/* Colors */
 .lucisco-color {
   color: #677AD9;
 }
@@ -16,6 +17,18 @@
 
 .area-color {
   color: #1E1E1E;
+}
+
+/* others */
+.notes {
+  height: 100px;
+}
+
+.sort {
+  cursor: pointer;
+}
+.sort:hover {
+  background-color: rgba(0,0,0,.075);
 }
 
 /* Bootstrap modifications */
