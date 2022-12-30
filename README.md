@@ -204,6 +204,8 @@ Link    : [Phoenix icon](https://thenounproject.com/icon/phoenix-2266436/)
 
 ### General codes' understanding (and future reminders)
 
+- Past projects, assignments, and random stuff
+- [Instructor in my institute](https://github.com/nekoto-kun/)
 - [Set up Flask with MySQL](https://flask-mysql.readthedocs.io/en/stable/)
 - [Bootstrap v5.2 documentation](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
 - [Flask MySQL CRUD](https://ngodingdata.com/tutorial-flask-crud-dengan-mysql-part-1/)
