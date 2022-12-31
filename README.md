@@ -1,6 +1,6 @@
 # LUCISCO - DAILY JOURNEY
 
-## Video Demo: <URL HERE>
+## Video Demo: [URL Link](https://youtu.be/j5UB_CQ2Kho)
 
 ---
 
