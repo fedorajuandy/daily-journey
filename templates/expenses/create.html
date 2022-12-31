@@ -6,18 +6,16 @@
 
 {% block main %}
 <div class="min-vh-100 text-white">
-  <div class="pt-5 pb-3">
-    <div class="row pt-5">
-      <div class="col-12">
-        <h1 class="display-5">Add Daily Expense</h1>
-      </div>
+  <div class="row pt-5 pb-3">
+    <div class="col-12">
+      <h1 class="display-5">Add Daily Expense</h1>
     </div>
   </div>
-  <form class="needs-validation text-white-50" novalidate="" action="/expenses/create" method="POST">
+  <form class="needs-validation text-white-50" novalidate="" action="/journeys/edit/{{ journey_id }}/expenses/create" method="POST">
     <div class="row mb-3">
       <div class="col-12 mb-3">
-        <label for="expenses" class="form-label">Name <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" id="expenses" name="expenses" placeholder="Name" autocomplete="off" autofocus required>
+        <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name" autocomplete="off" autofocus required>
         <div class="valid-feedback">
           Looks good!
         </div>
@@ -40,6 +38,8 @@
         </div>
       </div>
     </div>
+    <a type="button" class="btn btn-secondary" href="/journeys/edit/{{ journey_id }}">Cancel</a>
+    <button type="submit" class="btn btn-primary">Save</button>
   </form>
 </div>
 {% endblock %}

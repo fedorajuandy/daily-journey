@@ -6,11 +6,9 @@
 
 {% block main %}
 <div class="min-vh-100 text-white">
-  <div class="pt-5 pb-3">
-    <div class="row pt-5">
-      <div class="col-12">
-        <h1 class="display-5">Edit Importance</h1>
-      </div>
+  <div class="row pt-5 pb-3">
+    <div class="col-12">
+      <h1 class="display-5">Edit Importance</h1>
     </div>
   </div>
   <form class="needs-validation text-white-50" novalidate="" action="/journeys/edit/{{ journey_id }}/importances/edit/{{ importance[0] }}" method="POST">
@@ -30,7 +28,7 @@
         <textarea class="form-control notes" id="notes" name="notes" placeholder="Notes">{{ importance[4] }}</textarea>
       </div>
     </div>
-    <a type="button" class="btn btn-secondary" href="/">Cancel</a>
+    <a type="button" class="btn btn-secondary" href="/journeys/edit/{{ journey_id }}">Cancel</a>
     <button type="submit" class="btn btn-primary">Save</button>
   </form>
 </div>

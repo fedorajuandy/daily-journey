@@ -126,7 +126,7 @@ def edit_journey(id):
         importances = cursor.fetchall()
         cursor.execute("SELECT * FROM expenses WHERE journey_id LIKE %s", (id, ))
         expenses = cursor.fetchall()
-        cursor.execute("SELECT d.id, d.food_id, f.id, f.name FROM daily_beverages d JOIN food f ON(d.beverage_id = f.id) WHERE journey_id LIKE %s", (id, ))
+        cursor.execute("SELECT d.id, d.food_id, f.id, f.name FROM daily_food d JOIN food f ON(d.food_id = f.id) WHERE journey_id LIKE %s", (id, ))
         daily_food = cursor.fetchall()
         cursor.execute("SELECT d.id, d.beverage_id, b.id, b.name FROM daily_beverages d JOIN beverages b ON(d.beverage_id = b.id) WHERE journey_id LIKE %s", (id, ))
         daily_beverages = cursor.fetchall()
@@ -233,7 +233,7 @@ def add_expense(journey_id):
         amount = request.form['amount']
 
         cursor = mysql.connection.cursor()
-        cursor.execute("INSERT INTO expenses (user_id, journey_id, name, notes, amount) VALUES (%s, %s, %s, %s)", (user_id, journey_id, name, notes, amount))
+        cursor.execute("INSERT INTO expenses (user_id, journey_id, name, notes, amount) VALUES (%s, %s, %s, %s, %s)", (user_id, journey_id, name, notes, amount))
         mysql.connection.commit()
         cursor.close()
 
