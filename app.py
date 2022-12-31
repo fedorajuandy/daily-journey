@@ -45,26 +45,81 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():
-    """ cursor = mysql.connection.cursor()
-    j = cursor.execute("SELECT * FROM journeys WHERE date = (SELECT CONVERT(VARCHAR(10), GETDATE(), 105)) AND username = ?", session["username"])
-    journey = j[0]["journey"]
-    m = cursor.execute("SELECT AVERAGE(mood) AS mood FROM general WHERE username = ? GROUP BY username", session["username"])
-    w = cursor.execute("SELECT COUNTA(weather) AS weather FROM general WHERE username = ? GROUP BY username", session["username"])
-    p = cursor.execute("SELECT COUNTA(mentioned) AS person FROM general WHERE username = ? GROUP BY username", session["username"])
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM journeys WHERE user_id LIKE %s", (session["user_id"], ))
+    journeys = cursor.fetchall()
+    cursor.close()
 
-    # If there is no data yet
-    if m >= 1:
-        mood = m[0]["mood"]
-        weather = w[0]["weather"]
-        mentioned = p[0]["mentioned"]
+    return render_template("index.html", journeys=journeys)
+
+
+@app.route("/journey", methods=['GET', 'POST'])
+def index():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM journeys WHERE date = (SELECT CONVERT(VARCHAR(10), GETDATE(), 105)) AND user_id LIKE %s", (session["user_id"], ))
+    j = cursor.fetchall()
+
+    cursor.close()
+
+
+    return render_template("journey.html")
+
+
+@app.route('/weathers/create', methods=['GET', 'POST'])
+def add_weather():
+    if request.method == "POST":
+        user_id = session["user_id"]
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("INSERT INTO weathers (user_id, name, notes) VALUES (%s, %s, %s)", (user_id, name, notes))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data added.", "success")
+        return redirect(url_for('weathers'))
+
     else:
-        mood = 0
-        weather = "None"
-        mentioned = "Nobody :( are you lonely?"
+        return render_template('weathers/create.html')
 
-    cursor.close() """
 
-    return render_template("index.html")
+@app.route('/weathers/edit/<int:id>', methods=['GET', 'POST'])
+def edit_weather(id):
+    if request.method == "POST":
+        name = request.form['name']
+        notes = request.form['notes']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE weathers SET name = %s, notes = %s WHERE id = %s", (name, notes, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('weathers'))
+
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM weathers WHERE id = %s", (id, ))
+        beverage = cursor.fetchone()
+        cursor.close()
+
+        return render_template('weathers/edit.html', beverage=beverage)
+
+
+@app.route('/weathers/delete/<int:id>', methods=['GET'])
+def delete_weather(id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM weathers WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('weathers'))
+
+    else:
+        return render_template('weathers.html')
 
 
 @app.route("/login", methods=["GET", "POST"])

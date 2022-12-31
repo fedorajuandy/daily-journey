@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Add Daily Expense
+{% endblock %}
+
+{% block main %}
+<div class="min-vh-100 text-white">
+  <div class="pt-5 pb-3">
+    <div class="row pt-5">
+      <div class="col-12">
+        <h1 class="display-5">Add Daily Expense</h1>
+      </div>
+    </div>
+  </div>
+  <form class="needs-validation text-white-50" novalidate="" action="/expenses/create" method="POST">
+    <div class="row mb-3">
+      <div class="col-12 mb-3">
+        <label for="expenses" class="form-label">Name <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="expenses" name="expenses" placeholder="Name" autocomplete="off" autofocus required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Expenses name required.
+        </div>
+      </div>
+      <div class="col-12 mb-3">
+        <label for="notes" class="form-label">Notes</label>
+        <textarea class="form-control notes" id="notes" name="notes" placeholder="Notes"></textarea>
+      </div>
+      <div class="col-12 mb-3">
+        <label for="amount" class="form-label">Amount <span class="text-danger">*</span></label>
+        <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount" autocomplete="off" autofocus required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Expenses amount required.
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

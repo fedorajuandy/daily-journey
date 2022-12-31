@@ -26,11 +26,10 @@
           <div class="collapse navbar-collapse" id="navbarToggler">
             {% if session["user_id"] %}
               <div class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Journey</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/journey">Journeys</a></li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Data
-                  </a>
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data</a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="/beverages">Beverages</a></li>
                     <li><a class="dropdown-item" href="/food">Food</a></li>
