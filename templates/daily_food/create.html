@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Add Daily Food
+{% endblock %}
+
+{% block main %}
+<div class="min-vh-100 text-white">
+  <div class="pt-5 pb-3">
+    <div class="row pt-5">
+      <div class="col-12">
+        <h1 class="display-5">Add Daily Food</h1>
+      </div>
+    </div>
+  </div>
+  <form class="needs-validation text-white-50" novalidate="" action="/journeys/edit/{{ journey_id }}/food/create" method="POST">
+    <div class="row mb-3">
+      <div class="col-12 mb-3">
+        <label for="option_select">Food</label>
+        <select class="custom-select form-control" name="beverage_id" id="beverage_id" required>
+          <option value="option_select" disabled selected>Select f</option>
+          {% for f in food %}
+            <option value="{{ f[0] }}">{{ f[2] }}</option>
+          {% endfor %}
+        </select>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please select one option.
+        </div>
+      </div>
+    </div>
+    <a type="button" class="btn btn-secondary" href="/journeys/edit/{{ journey_id }}">Cancel</a>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+{% endblock %}

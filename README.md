@@ -10,7 +10,7 @@
 
 <div ctyle="text-align: justify">
 
-A simple web based application to write some important things or a journal daily focusing on simplicity with autosave function.
+A simple web based application to write some important things or a journal daily focusing on simplicity. Or not really. This has stranded away. In the end, it is more a flexible daily notes with per user's choices configuration.
 
 </div>
 
@@ -22,7 +22,7 @@ At first, I was about to make something similar, more to daily task in mobile ph
 
 Another personal reason is, I used to keep simple journal on my NDS as a habit from more than a decade ago. It is easy to use yet the date stopped adding after year 2020.
 
-The last reason of this is to try implementing what I have learnt about Python Flask. I am planning to continuously explore this in the future; including but not limited to graphical analysis (well, once I get the hang of machine learning which theories are the only one with me right now...)
+The last reason of this is to try implementing what I have learnt about Python Flask. I am planning to continuously explore this in the future.
 
 </div>
 
@@ -104,7 +104,7 @@ At first, I want to make it either userless or just a simple user with a single 
 
 11. weathers
 
-This table contains daily most weather. Yeah, most. Just one per day.
+This table contains daily most weather. Yeah, most. Just one per day for now.
 
 ---
 

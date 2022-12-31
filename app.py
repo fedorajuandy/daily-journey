@@ -68,6 +68,13 @@ def add_journey():
         title = request.form['title']
         diary = request.form['diary']
 
+        cursor.execute("SELECT * FROM journeys WHERE date = %s", (date, ))
+        rows = cursor.fetchone()
+
+        # Ensure no same date
+        if not rows:
+            return render_template("apology.html", message="There is already a journey of that date.")
+
         cursor.execute("INSERT INTO journeys (user_id, mood_id, weather_id, person_id, date, title, diary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, mood_id, weather_id, person_id, date, title, diary))
         mysql.connection.commit()
         cursor.close()
@@ -88,6 +95,8 @@ def add_journey():
 
 @app.route('/journeys/edit/<int:id>', methods=['GET', 'POST'])
 def edit_journey(id):
+    cursor = mysql.connection.cursor()
+
     if request.method == "POST":
         mood_id = request.form['mood_id']
         weather_id = request.form['weather_id']
@@ -96,7 +105,13 @@ def edit_journey(id):
         title = request.form['title']
         diary = request.form['diary']
 
-        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM journeys WHERE date = %s", (date, ))
+        rows = cursor.fetchone()
+
+        # Ensure no same date
+        if not rows:
+            return render_template("apology.html", message="There is already a journey of that date.")
+
         cursor.execute("UPDATE journeys SET mood_id = %s, weather_id = %s, person_id = %s, date = %s, title = %s, diary = %s WHERE id = %s", (mood_id, weather_id, person_id, date, title, diary, id))
         mysql.connection.commit()
         cursor.close()
@@ -107,7 +122,6 @@ def edit_journey(id):
     else:
         user_id = session["user_id"]
 
-        cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM importances WHERE journey_id LIKE %s", (id, ))
         importances = cursor.fetchall()
         cursor.execute("SELECT * FROM expenses WHERE journey_id LIKE %s", (id, ))
@@ -150,7 +164,7 @@ def delete_journey(id):
         return redirect(url_for('index'))
 
     else:
-        return render_template('journeys.html')
+        return render_template('index.html')
 
 
 @app.route('/journeys/edit/<int:journey_id>/importances/create', methods=['GET', 'POST'])
@@ -207,7 +221,190 @@ def delete_importance(journey_id, id):
         return redirect(url_for('index'))
 
     else:
-        return render_template('journeys.html', journey_id=journey_id)
+        return render_template('index.html')
+
+
+@app.route('/journeys/edit/<int:journey_id>/expenses/create', methods=['GET', 'POST'])
+def add_importance(journey_id):
+    if request.method == "POST":
+        user_id = session["user_id"]
+        name = request.form['name']
+        notes = request.form['notes']
+        amount = request.form['amount']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("INSERT INTO expenses (user_id, journey_id, name, notes, amount) VALUES (%s, %s, %s, %s)", (user_id, journey_id, name, notes, amount))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data added.", "success")
+        return redirect(url_for('index'))
+
+    else:
+        return render_template('expenses/create.html', journey_id=journey_id)
+
+
+@app.route('/journeys/edit/<int:journey_id>/expenses/edit/<int:id>', methods=['GET', 'POST'])
+def edit_importance(journey_id, id):
+    if request.method == "POST":
+        name = request.form['name']
+        notes = request.form['notes']
+        amount = request.form['amount']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE expenses SET name = %s, notes = %s, amount = %s WHERE id = %s", (name, notes, amount, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('index'))
+
+    else:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM expenses WHERE id = %s", (id, ))
+        importance = cursor.fetchone()
+        cursor.close()
+
+        return render_template('expenses/edit.html', journey_id=journey_id, importance=importance)
+
+
+@app.route('/journeys/edit/<int:journey_id>/expenses/delete/<int:id>', methods=['GET', 'POST'])
+def delete_importance(journey_id, id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM expenses WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('index'))
+
+    else:
+        return render_template('index.html')
+
+
+@app.route('/journeys/edit/<int:journey_id>/beverages/create', methods=['GET', 'POST'])
+def add_daily_beverages(journey_id):
+    cursor = mysql.connection.cursor()
+
+    if request.method == "POST":
+        user_id = session["user_id"]
+        beverage_id = request.form['beverage_id']
+
+        cursor.execute("INSERT INTO daily_beverages (user_id, journey_id, beverage_id) VALUES (%s, %s, %s)", (user_id, journey_id, beverage_id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data added.", "success")
+        return redirect(url_for('index'))
+
+    else:
+        cursor.execute("SELECT * FROM beverages WHERE user_id LIKE %s", (user_id, ))
+        beverages = cursor.fetchall()
+
+        return render_template('daily_beverages/create.html', journey_id=journey_id, bevegares=beverages)
+
+
+@app.route('/journeys/edit/<int:journey_id>/beverages/edit/<int:id>', methods=['GET', 'POST'])
+def edit_daily_beverages(journey_id, id):
+    cursor = mysql.connection.cursor()
+
+    if request.method == "POST":
+        beverage_id = request.form['beverage_id']
+
+        cursor.execute("UPDATE daily_beverages SET beverage_id = %s WHERE id = %s", (beverage_id, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('index'))
+
+    else:
+        cursor.execute("SELECT * FROM beverages WHERE user_id LIKE %s", (session['user_id'], ))
+        beverages = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM daily_beverages WHERE id = %s", (id, ))
+        daily_beverage = cursor.fetchone()
+        cursor.close()
+
+        return render_template('daily_beverages/edit.html', journey_id=journey_id, beverages=beverages, daily_beverage=daily_beverage)
+
+
+@app.route('/journeys/edit/<int:journey_id>/beverages/delete/<int:id>', methods=['GET', 'POST'])
+def delete_daily_beverages(journey_id, id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM daily_beverages WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('index'))
+
+    else:
+        return render_template('index.html')
+
+
+@app.route('/journeys/edit/<int:journey_id>/food/create', methods=['GET', 'POST'])
+def add_daily_food(journey_id):
+    cursor = mysql.connection.cursor()
+
+    if request.method == "POST":
+        user_id = session["user_id"]
+        food_id = request.form['food_id']
+
+        cursor.execute("INSERT INTO daily_food (user_id, journey_id, food_id) VALUES (%s, %s, %s)", (user_id, journey_id, food_id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data added.", "success")
+        return redirect(url_for('index'))
+
+    else:
+        cursor.execute("SELECT * FROM food WHERE user_id LIKE %s", (user_id, ))
+        food = cursor.fetchall()
+
+        return render_template('daily_food/create.html', journey_id=journey_id, food=food)
+
+
+@app.route('/journeys/edit/<int:journey_id>/food/edit/<int:id>', methods=['GET', 'POST'])
+def edit_daily_food(journey_id, id):
+    cursor = mysql.connection.cursor()
+
+    if request.method == "POST":
+        food_id = request.form['food_id']
+
+        cursor.execute("UPDATE daily_food SET food_id = %s WHERE id = %s", (food_id, id))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data edited.", "success")
+        return redirect(url_for('index'))
+
+    else:
+        cursor.execute("SELECT * FROM food WHERE user_id LIKE %s", (session['user_id'], ))
+        food = cursor.fetchall()
+
+        cursor.execute("SELECT * FROM daily_food WHERE id = %s", (id, ))
+        daily_food = cursor.fetchone()
+        cursor.close()
+
+        return render_template('daily_food/edit.html', journey_id=journey_id, food=food, daily_food=daily_food)
+
+
+@app.route('/journeys/edit/<int:journey_id>/food/delete/<int:id>', methods=['GET', 'POST'])
+def delete_daily_food(journey_id, id):
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM daily_food WHERE id = %s", (id, ))
+        mysql.connection.commit()
+        cursor.close()
+
+        flash("Data deleted", "success")
+        return redirect(url_for('index'))
+
+    else:
+        return render_template('index.html')
 
 
 @app.route("/login", methods=["GET", "POST"])
