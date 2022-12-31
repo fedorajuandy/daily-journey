@@ -262,10 +262,10 @@ def edit_expense(journey_id, id):
     else:
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM expenses WHERE id = %s", (id, ))
-        importance = cursor.fetchone()
+        expense = cursor.fetchone()
         cursor.close()
 
-        return render_template('expenses/edit.html', journey_id=journey_id, importance=importance)
+        return render_template('expenses/edit.html', journey_id=journey_id, expense=expense)
 
 
 @app.route('/journeys/edit/<int:journey_id>/expenses/delete/<int:id>', methods=['GET', 'POST'])
@@ -286,6 +286,7 @@ def delete_expense(journey_id, id):
 @app.route('/journeys/edit/<int:journey_id>/beverages/create', methods=['GET', 'POST'])
 def add_daily_beverages(journey_id):
     cursor = mysql.connection.cursor()
+    user_id = session["user_id"]
 
     if request.method == "POST":
         user_id = session["user_id"]
@@ -348,9 +349,9 @@ def delete_daily_beverages(journey_id, id):
 @app.route('/journeys/edit/<int:journey_id>/food/create', methods=['GET', 'POST'])
 def add_daily_food(journey_id):
     cursor = mysql.connection.cursor()
+    user_id = session["user_id"]
 
     if request.method == "POST":
-        user_id = session["user_id"]
         food_id = request.form['food_id']
 
         cursor.execute("INSERT INTO daily_food (user_id, journey_id, food_id) VALUES (%s, %s, %s)", (user_id, journey_id, food_id))
