@@ -102,15 +102,32 @@ def edit_journey(id):
         cursor.close()
 
         flash("Data edited.", "success")
-        return redirect(url_for('journeys'))
+        return redirect(url_for('index'))
 
     else:
+        user_id = session["user_id"]
+
         cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM importances WHERE journey_id LIKE %s", (id, ))
+        importances = cursor.fetchall()
+        cursor.execute("SELECT * FROM expenses WHERE journey_id LIKE %s", (id, ))
+        expenses = cursor.fetchall()
+        cursor.execute("SELECT * FROM daily_food WHERE journey_id LIKE %s", (id, ))
+        daily_food = cursor.fetchall()
+        cursor.execute("SELECT * FROM daily_beverages WHERE journey_id LIKE %s", (id, ))
+        daily_beverages = cursor.fetchall()
+        cursor.execute("SELECT * FROM moods WHERE user_id LIKE %s", (user_id, ))
+        moods = cursor.fetchall()
+        cursor.execute("SELECT * FROM weathers WHERE user_id LIKE %s", (user_id, ))
+        weathers = cursor.fetchall()
+        cursor.execute("SELECT * FROM people WHERE user_id LIKE %s", (user_id, ))
+        people = cursor.fetchall()
+
         cursor.execute("SELECT * FROM journeys WHERE id = %s", (id, ))
         journey = cursor.fetchone()
         cursor.close()
 
-        return render_template('journeys/edit.html', journey=journey)
+        return render_template('journeys/edit.html', importances=importances, expenses=expenses, daily_food=daily_food, daily_beverages=daily_beverages, moods=moods, weathers=weathers, people=people, journey=journey)
 
 
 @app.route('/journeys/delete/<int:id>', methods=['GET'])
@@ -121,16 +138,16 @@ def delete_journey(id):
         mysql.connection.commit()
         cursor.execute("DELETE FROM importances WHERE journey_id LIKE %s", (id, ))
         mysql.connection.commit()
-        cursor.execute("DELETE FROM food WHERE journey_id LIKE %s", (id, ))
+        cursor.execute("DELETE FROM daily_food WHERE journey_id LIKE %s", (id, ))
         mysql.connection.commit()
-        cursor.execute("DELETE FROM beverages WHERE journey_id LIKE %s", (id, ))
+        cursor.execute("DELETE FROM daily_beverages WHERE journey_id LIKE %s", (id, ))
         mysql.connection.commit()
         cursor.execute("DELETE FROM journeys WHERE id = %s", (id, ))
         mysql.connection.commit()
         cursor.close()
 
         flash("Data deleted", "success")
-        return redirect(url_for('journeys'))
+        return redirect(url_for('index'))
 
     else:
         return render_template('journeys.html')
@@ -149,14 +166,14 @@ def add_importance(journey_id):
         cursor.close()
 
         flash("Data added.", "success")
-        return redirect(url_for('journeys'))
+        return redirect(url_for('index'))
 
     else:
-        return render_template('importances/create.html')
+        return render_template('importances/create.html', journey_id=journey_id)
 
 
 @app.route('/journeys/edit/<int:journey_id>/importances/edit/<int:id>', methods=['GET', 'POST'])
-def edit_importance(id):
+def edit_importance(journey_id, id):
     if request.method == "POST":
         name = request.form['name']
         notes = request.form['notes']
@@ -167,7 +184,7 @@ def edit_importance(id):
         cursor.close()
 
         flash("Data edited.", "success")
-        return redirect(url_for('weathers'))
+        return redirect(url_for('index'))
 
     else:
         cursor = mysql.connection.cursor()
@@ -175,11 +192,11 @@ def edit_importance(id):
         importance = cursor.fetchone()
         cursor.close()
 
-        return render_template('importances/edit.html', importance=importance)
+        return render_template('importances/edit.html', journey_id=journey_id, importance=importance)
 
 
 @app.route('/journeys/edit/<int:journey_id>/importances/delete/<int:id>', methods=['GET', 'POST'])
-def delete_importance(id):
+def delete_importance(journey_id, id):
     if request.method == 'GET':
         cursor = mysql.connection.cursor()
         cursor.execute("DELETE FROM importances WHERE id = %s", (id, ))
@@ -187,10 +204,10 @@ def delete_importance(id):
         cursor.close()
 
         flash("Data deleted", "success")
-        return redirect(url_for('joureys'))
+        return redirect(url_for('index'))
 
     else:
-        return render_template('journeys.html')
+        return render_template('journeys.html', journey_id=journey_id)
 
 
 @app.route("/login", methods=["GET", "POST"])

@@ -13,11 +13,11 @@
       </div>
     </div>
   </div>
-  <form class="needs-validation text-white-50" novalidate="" action="/importances/edit/{{ importance[0] }}" method="POST">
+  <form class="needs-validation text-white-50" novalidate="" action="/journeys/edit/{{ journey_id }}/importances/edit/{{ importance[0] }}" method="POST">
     <div class="row mb-3">
       <div class="col-12 mb-3">
         <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ importance[2] }}" autocomplete="off" autofocus required>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{ importance[3] }}" autocomplete="off" autofocus required>
         <div class="valid-feedback">
           Looks good!
         </div>
@@ -27,10 +27,10 @@
       </div>
       <div class="col-12 mb-3">
         <label for="notes" class="form-label">Notes</label>
-        <textarea class="form-control notes" id="notes" name="notes" placeholder="Notes">{{ importance[3] }}</textarea>
+        <textarea class="form-control notes" id="notes" name="notes" placeholder="Notes">{{ importance[4] }}</textarea>
       </div>
     </div>
-    <a type="button" class="btn btn-secondary" href="/journeys">Cancel</a>
+    <a type="button" class="btn btn-secondary" href="/">Cancel</a>
     <button type="submit" class="btn btn-primary">Save</button>
   </form>
 </div>
