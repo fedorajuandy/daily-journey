@@ -68,11 +68,11 @@ def add_journey():
         title = request.form['title']
         diary = request.form['diary']
 
-        cursor.execute("SELECT * FROM journeys WHERE date = %s", (date, ))
+        cursor.execute("SELECT * FROM journeys WHERE date = %s AND user_id = %s", (date, user_id))
         rows = cursor.fetchone()
 
         # Ensure no same date
-        if not rows:
+        if rows:
             return render_template("apology.html", message="There is already a journey of that date.")
 
         cursor.execute("INSERT INTO journeys (user_id, mood_id, weather_id, person_id, date, title, diary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, mood_id, weather_id, person_id, date, title, diary))
@@ -801,10 +801,10 @@ def edit_weather(id):
     else:
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM weathers WHERE id = %s", (id, ))
-        beverage = cursor.fetchone()
+        weather = cursor.fetchone()
         cursor.close()
 
-        return render_template('weathers/edit.html', beverage=beverage)
+        return render_template('weathers/edit.html', weather=weather)
 
 
 @app.route('/weathers/delete/<int:id>', methods=['GET'])
