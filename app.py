@@ -303,7 +303,7 @@ def add_daily_beverages(journey_id):
         cursor.execute("SELECT * FROM beverages WHERE user_id LIKE %s", (user_id, ))
         beverages = cursor.fetchall()
 
-        return render_template('daily_beverages/create.html', journey_id=journey_id, bevegares=beverages)
+        return render_template('daily_beverages/create.html', journey_id=journey_id, beverages=beverages)
 
 
 @app.route('/journeys/edit/<int:journey_id>/beverages/edit/<int:id>', methods=['GET', 'POST'])

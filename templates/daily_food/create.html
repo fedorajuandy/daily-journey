@@ -15,8 +15,8 @@
     <div class="row mb-3">
       <div class="col-12 mb-3">
         <label for="option_select">Food</label>
-        <select class="custom-select form-control" name="beverage_id" id="beverage_id" required>
-          <option value="option_select" disabled selected>Select f</option>
+        <select class="custom-select form-control" name="food_id" id="food_id" required>
+          <option value="option_select" disabled selected>Select food</option>
           {% for f in food %}
             <option value="{{ f[0] }}">{{ f[2] }}</option>
           {% endfor %}

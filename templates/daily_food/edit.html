@@ -11,14 +11,14 @@
       <h1 class="display-5">Edit Daily Food</h1>
     </div>
   </div>
-  <form class="needs-validation text-white-50" novalidate="" action="/journeys/edit/{{ journey_id }}/food/edit/{{ importance[0] }}" method="POST">
+  <form class="needs-validation text-white-50" novalidate="" action="/journeys/edit/{{ journey_id }}/food/edit/{{ daily_food[0] }}" method="POST">
     <div class="row mb-3">
       <div class="col-12 mb-3">
         <label for="option_select">Food</label>
         <select class="custom-select form-control" name="food_id" id="food_id" required>
-          <option value="option_select" disabled selected>Select f</option>
+          <option value="option_select" disabled selected>Select food</option>
           {% for f in food %}
-            <option value="{{ f[0] }}" {% if daily_beverages[3] == f[0] %} selected {% endif %}>{{ f[2] }}</option>
+            <option value="{{ f[0] }}" {% if daily_food[3] == f[0] %} selected {% endif %}>{{ f[2] }}</option>
           {% endfor %}
         </select>
         <div class="valid-feedback">
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <a type="button" class="btn btn-secondary" href="/">Cancel</a>
+    <a type="button" class="btn btn-secondary" href="/journeys/edit/{{ journey_id }}">Cancel</a>
     <button type="submit" class="btn btn-primary">Save</button>
   </form>
 </div>
