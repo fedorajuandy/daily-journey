@@ -126,9 +126,9 @@ def edit_journey(id):
         importances = cursor.fetchall()
         cursor.execute("SELECT * FROM expenses WHERE journey_id LIKE %s", (id, ))
         expenses = cursor.fetchall()
-        cursor.execute("SELECT * FROM daily_food WHERE journey_id LIKE %s", (id, ))
+        cursor.execute("SELECT d.id, d.food_id, f.id, f.name FROM daily_beverages d JOIN food f ON(d.beverage_id = f.id) WHERE journey_id LIKE %s", (id, ))
         daily_food = cursor.fetchall()
-        cursor.execute("SELECT * FROM daily_beverages WHERE journey_id LIKE %s", (id, ))
+        cursor.execute("SELECT d.id, d.beverage_id, b.id, b.name FROM daily_beverages d JOIN beverages b ON(d.beverage_id = b.id) WHERE journey_id LIKE %s", (id, ))
         daily_beverages = cursor.fetchall()
         cursor.execute("SELECT * FROM moods WHERE user_id LIKE %s", (user_id, ))
         moods = cursor.fetchall()
@@ -225,7 +225,7 @@ def delete_importance(journey_id, id):
 
 
 @app.route('/journeys/edit/<int:journey_id>/expenses/create', methods=['GET', 'POST'])
-def add_importance(journey_id):
+def add_expense(journey_id):
     if request.method == "POST":
         user_id = session["user_id"]
         name = request.form['name']
@@ -245,7 +245,7 @@ def add_importance(journey_id):
 
 
 @app.route('/journeys/edit/<int:journey_id>/expenses/edit/<int:id>', methods=['GET', 'POST'])
-def edit_importance(journey_id, id):
+def edit_expense(journey_id, id):
     if request.method == "POST":
         name = request.form['name']
         notes = request.form['notes']
@@ -269,7 +269,7 @@ def edit_importance(journey_id, id):
 
 
 @app.route('/journeys/edit/<int:journey_id>/expenses/delete/<int:id>', methods=['GET', 'POST'])
-def delete_importance(journey_id, id):
+def delete_expense(journey_id, id):
     if request.method == 'GET':
         cursor = mysql.connection.cursor()
         cursor.execute("DELETE FROM expenses WHERE id = %s", (id, ))
