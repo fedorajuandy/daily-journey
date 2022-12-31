@@ -214,6 +214,7 @@ Link    : [Phoenix icon](https://thenounproject.com/icon/phoenix-2266436/)
 - [Check cursor's result](https://stackoverflow.com/questions/31692339/mysqldb-check-if-row-exists-python)
 - [Convert time to certain format](https://tableplus.com/blog/2018/09/ms-sql-server-how-to-get-date-only-from-datetime-value.html)
 - [Change Bootstrap tab css](https://stackoverflow.com/questions/51701512/how-to-change-the-color-of-active-tab-in-bootstrap)
+- [Bootstrap datepicker](https://bootstrap-datepicker.readthedocs.io/en/latest/)
 
 ### Tools Used
 

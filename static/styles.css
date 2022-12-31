@@ -23,6 +23,9 @@
 .notes {
   height: 100px;
 }
+.diary {
+  height: 300px;
+}
 
 .sort {
   cursor: pointer;
