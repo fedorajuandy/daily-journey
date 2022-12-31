@@ -108,9 +108,7 @@ This table contains daily most weather. Yeah, most. Just one per day for now.
 
 ---
 
-## Structures
-
-### folders
+## Files Structure
 
 - additionals
 
@@ -138,7 +136,7 @@ Static files.
 
 - templates
 
-App's html files
+App's html files. The folders within this folder are for managing same table's function; like create, edit, and index of 'food' part. The 'apology' file is for error page, the 'index' file for home page, 'layout' for master template, and 'login' for log in.
 
 - .gitnore
 
@@ -166,8 +164,6 @@ This file; which is the explanations.
 - pip install flask-mysql
 - pip install flask_session
 - pip install requests
-- pip install flask_mail
-- pip install waitress
 - pip install flask_mysqldb
 
 ### Starting
@@ -178,11 +174,7 @@ This file; which is the explanations.
 
 > [To run flask in debug mode](https://stackoverflow.com/questions/16344756/auto-reloading-python-flask-app-upon-code-changes)
 
-### If something goes wrong
-
-- export FLASK_APP=app
-
-> Admitedly, I forgot what happened
+- `export FLASK_APP=app`
 
 ---
 

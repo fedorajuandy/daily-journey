@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `beverages` (
   PRIMARY KEY (`id`),
   KEY `FK_beverages_userid` (`user_id`),
   CONSTRAINT `FK_beverages_userid` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table daily-journey.beverages: ~0 rows (approximately)
 /*!40000 ALTER TABLE `beverages` DISABLE KEYS */;
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `food` (
   PRIMARY KEY (`id`),
   KEY `FK_food_userid` (`user_id`),
   CONSTRAINT `FK_food_userid` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table daily-journey.food: ~0 rows (approximately)
 /*!40000 ALTER TABLE `food` DISABLE KEYS */;
@@ -137,7 +137,9 @@ CREATE TABLE IF NOT EXISTS `journeys` (
   `mood_id` int(11) NOT NULL,
   `weather_id` int(11) NOT NULL,
   `person_id` int(11) NOT NULL,
-  `date` date NOT NULL,
+  `date` char(10) NOT NULL DEFAULT '',
+  `title` varchar(50) DEFAULT NULL,
+  `diary` text,
   PRIMARY KEY (`id`),
   KEY `FK_journeys_userid` (`user_id`),
   KEY `FK_journeys_moodid` (`mood_id`),
@@ -147,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `journeys` (
   CONSTRAINT `FK_journeys_personid` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`),
   CONSTRAINT `FK_journeys_userid` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_journeys_weathers` FOREIGN KEY (`weather_id`) REFERENCES `weathers` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table daily-journey.journeys: ~0 rows (approximately)
 /*!40000 ALTER TABLE `journeys` DISABLE KEYS */;
@@ -163,9 +165,9 @@ CREATE TABLE IF NOT EXISTS `moods` (
   PRIMARY KEY (`id`),
   KEY `FK_moods_userid` (`user_id`),
   CONSTRAINT `FK_moods_userid` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table daily-journey.moods: ~0 rows (approximately)
+-- Dumping data for table daily-journey.moods: ~3 rows (approximately)
 /*!40000 ALTER TABLE `moods` DISABLE KEYS */;
 /*!40000 ALTER TABLE `moods` ENABLE KEYS */;
 
@@ -179,9 +181,9 @@ CREATE TABLE IF NOT EXISTS `people` (
   PRIMARY KEY (`id`),
   KEY `FK_people_userid` (`user_id`),
   CONSTRAINT `FK_people_userid` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table daily-journey.people: ~0 rows (approximately)
+-- Dumping data for table daily-journey.people: ~3 rows (approximately)
 /*!40000 ALTER TABLE `people` DISABLE KEYS */;
 /*!40000 ALTER TABLE `people` ENABLE KEYS */;
 
@@ -190,11 +192,11 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table daily-journey.users: ~0 rows (approximately)
+-- Dumping data for table daily-journey.users: ~3 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
@@ -208,9 +210,9 @@ CREATE TABLE IF NOT EXISTS `weathers` (
   PRIMARY KEY (`id`),
   KEY `FK_weathers_userid` (`user_id`),
   CONSTRAINT `FK_weathers_userid` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table daily-journey.weathers: ~0 rows (approximately)
+-- Dumping data for table daily-journey.weathers: ~3 rows (approximately)
 /*!40000 ALTER TABLE `weathers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `weathers` ENABLE KEYS */;
 
