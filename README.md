@@ -42,7 +42,7 @@ The simple philosophy behind it is to continue rising like a new day.
 
 <div style="text-align: justify">
 
-Continueing from the name, the first thing that came to my mind about "continue rising" is a phoenix, for some reasons I refuse to indulge. Nuh uh. Emotions go bye-bye. Anyway, so I made the logo of Lucisco as a phoenix.
+Continuing from the name, the first thing that came to my mind about "continue rising" is a phoenix, for some reasons I refuse to indulge. Nuh uh. Emotions go bye-bye. Anyway, so I made the logo of Lucisco as a phoenix.
 
 </div>
 
